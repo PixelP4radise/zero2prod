@@ -27,7 +27,7 @@ jobs:
     - name: Add FMT
       run: rustup component add rustfmt
     - name: Install Audit
-      run: cargo install cargo-au
+      run: cargo install cargo-audit
     
     - name: Build
       run: cargo build --verbose
