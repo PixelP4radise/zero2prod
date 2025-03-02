@@ -21,7 +21,7 @@ jobs:
       run: curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
 
     - name: Install Tarpaulin
-      run: cargo tarpaulin --ignore-tests
+      run: cargo install cargo-tarpaulin
     - name: Add Clippy
       run: rustup component add clippy
     - name: Add FMT
