@@ -11,7 +11,6 @@ fn spawn_app() -> String {
     format!("http://127.0.0.1:{}", port)
 }
 
-
 #[tokio::test]
 async fn health_check_works() {
     let adress = spawn_app();
@@ -19,7 +18,7 @@ async fn health_check_works() {
     let client = reqwest::Client::new();
 
     let response = client
-        .get(&format!("{}/health_check",adress))
+        .get(&format!("{}/health_check", adress))
         .send()
         .await
         .expect("Failed to execute request");
@@ -27,4 +26,3 @@ async fn health_check_works() {
     assert!(response.status().is_success());
     assert_eq!(Some(0), response.content_length());
 }
-
