@@ -1,5 +1,5 @@
 use actix_web::web;
-use sqlx::{Connection, PgConnection};
+use sqlx::{Connection, PgConnection, PgPool};
 use std::net::TcpListener;
 use zero2prod::configuration::get_configuration;
 use zero2prod::startup::run;
@@ -8,7 +8,7 @@ use zero2prod::startup::run;
 async fn main() -> Result<(), std::io::Error> {
     let configuration = get_configuration().expect("Failed to read configuration.");
 
-    let connection = PgConnection::connect(&configuration.database.connection_string())
+    let connection_pool = PgPool::connect(&configuration.database.connection_string())
         .await
         .expect("Failed to connect to Postgres.");
 
@@ -16,5 +16,5 @@ async fn main() -> Result<(), std::io::Error> {
 
     let listener = TcpListener::bind(address).expect("Failed to bind random port");
 
-    run(listener, connection)?.await
+    run(listener, connection_pool)?.await
 }
